@@ -17,14 +17,16 @@ def sumbmitted(request):
 
     for q in questions:
         q.participants += 1
-        x = str(q.id)
-        y = request.POST[x]
-        y=int(y)
-        choice = q.choice_set.get(id = y)
-        choice.votes += 1
-        choice.percentage = ((choice.votes)*100)/q.participants
-        choice.save()
-        q.save()
+        qId = str(q.id)
+        cId = request.POST[qId]
+        cId = int(cId)
+        for choice in q.choice_set.all():
+            if choice.id == cId:
+                choice.votes += 1
+            choice.percentage = ((choice.votes)*100)/q.participants
+            choice.save()
+            q.save()
+
 
     return HttpResponse("your answer has been successfully submitted!")
 

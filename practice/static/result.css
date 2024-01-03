@@ -1,4 +1,4 @@
-*{
+/* *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -22,4 +22,4 @@ ch_{{ choice.id }}{
     border: 2px solid red;
 }
 {% endfor %}
-{% endfor %}
+{% endfor %} */
