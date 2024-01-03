@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+input[type=text]{
+    width: 100vw;
+    box-sizing: border-box;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    background-image: url("search.png");
+    background-size: 20px auto;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: 3px;
+}

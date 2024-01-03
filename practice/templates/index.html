@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <h1>Poll Questions</h1>
+            <form action="{% url 'submit' %}" method="post">
+                {% csrf_token %}
+                <ul>
+                    {% for question in questions %}
+                    <li>
+                        <label for="{{ question.id }}">{{ question.q_text }}</label><br>
+                        <select name="{{ question.id }}" id="{{ question.id }}">
+                        {% for choice in question.choice_set.all %}
+                        <option value="{{ choice.id }}">{{ choice.c_text }}</option>
+                        {% endfor %}
+                        </select>
+                    </li>
+                    {% endfor %}
+                </ul>
+    
+                <input type="submit" value="Submit My Answer" class="submit">
+            </form>
+            <p>
+                <a href="{% url 'result' %}">RESULTS HERE</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
