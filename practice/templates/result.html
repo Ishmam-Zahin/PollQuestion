@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <style>
+<style>
 *{
     box-sizing: border-box;
     margin: 0;
@@ -21,17 +21,43 @@ body{
     border: 2px solid rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.289);
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     overflow: auto;
 }
+.container{
+    border: 2px solid red;
+    width: 500px;
+    height: fit-content;
+    overflow: auto;
+    
+}
+.container h1{
+    text-align: center;
+}
+.qs{
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    width: 100%;
+    height: 33%;
+}
+.qs h2 span{
+    font-size: small;
+}
+.ch_container{
+    margin-top: 5px;
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .choices{
-    width: 200px;
-    height: 200px;
-    border: 2px solid rgb(39, 50, 255);
-    margin: 10px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgb(39, 50, 255);
+    margin: 5px;
     border-radius: 50%;
-    background-image: conic-gradient(blue 0deg, blue 20deg, rgb(113, 113, 74) 0deg);
+    background-image: conic-gradient(blue 0deg, blue 0deg, rgb(113, 113, 74) 0deg);
     position: relative;
 }
 .plates{
@@ -44,39 +70,29 @@ body{
     left: 10%;
     top: 10%;
     z-index: 1;
-
-}
-.cText{
-    width: 50px;
-    height: 40px;
-    border: 1px solid black;
     text-align: center;
-    position: absolute;
-    top: 40%;
-    left: 37%;
-    z-index: 2;
 }
-
-{% for question in questions %}
-{% for choice in question.choice_set.all %}
-#ch_{{ choice.id }}{
-    background-image: conic-gradient(blue 0deg, blue {{ choice.votes }}deg, rgb(113, 113, 74) 0deg);
-}
-{% endfor %}
-{% endfor %}
-    </style>
+</style>
 </head>
 <body>
     <div class="bdy">
-        {% for question in questions %}
-        {% for choice in question.choice_set.all %}
-        <div id="ch_{{ choice.id }}" class="choices">
-            <div class="cText">{{ choice.c_text }} <br> {{ choice.percentage|floatformat:1 }}%</div>
-            <div class="plates"></div>
+        <div class="container">
+            <h1>Results:</h1>
+            {% for question in questions %}
+            <div class="qs">
+                <h2>{{ question.q_text }} <span>(total participants: {{ question.participants }})</span></h2>
+                <div class="ch_container">
+                    {% for choice in question.choice_set.all %}
+                    <div class="choices" id="ch_{{ choice.id }}">
+                        <div class="plates">
+                            <span>{{ choice.c_text }} <br> {{ choice.percentage|floatformat:1 }}%</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-        {% endfor %}
-
     </div>
 <script>
     let x=0;
